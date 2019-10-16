@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use App\Peran;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users.index')->with('users', User::paginate(10));
     }
 
     /**
@@ -57,7 +60,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::user()->id == $id){
+            return redirect()->route('admin.users.index');
+        }
+        return view('admin.users.edit')->with(['user' => User::find($id), 'perans' => Peran::all()]);
     }
 
     /**
