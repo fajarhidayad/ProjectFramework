@@ -12,8 +12,9 @@
         <meta property="og:url" content="" />
         <meta property="og:description" content="" />		
 		
-
+        <link type="text/css" href="{{asset('css/style.css')}}" rel="stylesheet" />
         <link type="text/css" href="{{asset('assets/css/demos/photo.css')}}" rel="stylesheet" />
+
 
 		
   </head>
