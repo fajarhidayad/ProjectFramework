@@ -31,3 +31,6 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'auth.admin'])->
     Route::resource('/users', 'UserController');
 });
 
+Route::get('/upload', function() {
+    return view('upload.upload');
+});
