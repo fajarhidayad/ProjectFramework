@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        DB::table('users')->delete();
 
         $adminRole = Peran::where('name', 'admin')->first();
         $userRole = Peran::where('name', 'user')->first();

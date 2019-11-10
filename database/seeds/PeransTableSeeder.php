@@ -12,7 +12,7 @@ class PeransTableSeeder extends Seeder
      */
     public function run()
     {
-        Peran::truncate();
+        DB::table('perans')->delete();
 
         Peran::create(['name' => 'admin']);
         Peran::create(['name' => 'user']);

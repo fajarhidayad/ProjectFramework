@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Home')
+@section('title','Upload')
 @section('content')
 <!-- ==============================================
 	 News Feed Section
@@ -13,50 +13,24 @@
                 <div class="box">
                     <h3 style="padding-left: 20px; padding-top: 20px;"> Submit Something Fun</h3>
 
-                    <form id="upload"
-                        action="" method="post" enctype="multipart/form-data">
-
+                    <form id="upload" action="{{route('upload.foto')}}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <table width="100%" id="upload_form">
-                            <tr class="mediatype" style="display:none" id="mediatype1">
+
+                            <tr class="mediatype" id="mediatype2" class="{{ $errors->has('foto') ? ' has-error' : '' }}">
                                 <td width="100" valign="middle">
-                                    Url Gambar
+                                    File foto
                                 </td>
 
                                 <td>
-                                    <input type="text" name="pic_url" value="" style="width:400px"> <br>
-                                    <span class="blur">(required) e.g. http://example.com/images/funnyimages.jpg</span>
-
-                                </td>
-
-                            </tr>
-
-                            <tr class="mediatype" id="mediatype2">
-                                <td width="100" valign="middle">
-                                    File gambar
-                                </td>
-
-                                <td>
-                                    <input type="file" name="pic_file" onchange="$('#pic_title').focus()" id="pic_file"
+                                    <input type="file" name="foto" onchange="$('#pic_title').focus()" id="pic_file"
                                         style="width:400px"> <br>
-
-
                                 </td>
-
-                            </tr>
-
-                            <tr class="mediatype" style="display:none" id="mediatype3">
-                                <td width="100" valign="middle">
-                                    Video URL
-                                </td>
-
-                                <td>
-                                    <input type="text" name="video_url" style="width:400px"> <br>
-                                    <span class="blur">(required) e.g. http://www.youtube.com/watch?v=3Ri_G0wgaQo (with
-                                        minimum likes 25, or at least 20 followers on 1CAK) atau
-                                        https://gfycat.com/FakeDescriptiveArmedcrab </span>
-
-                                </td>
-
+                                @if ($errors->has('foto'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('nip') }}</strong>
+                                </span>
+                            @endif
                             </tr>
 
                             <tr>
@@ -64,8 +38,13 @@
                                     Title
                                 </td>
 
-                                <td>
-                                    <input type="text" name="pic_title" id="pic_title" value="" style="width:400px"><br>
+                                <td class="{{ $errors->has('title') ? ' has-error' : '' }}">
+                                    <input type="text" name="title" id="pic_title" value="" style="width:400px"><br>
+                                    @if ($errors->has('title'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nip') }}</strong>
+                                    </span>
+                                @endif
                                     <span class="blur">(required) deskripsi gambar yang kamu posting, biar mendapat vote
                                         yang banyak , hindari judul yang terlalu singkat seperti LOL,kocak,
                                         ngakak,postingan pertama, koplak, tolong di vote</span>
@@ -80,9 +59,8 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" name="pic_source" id="pic_source" value=""
-                                        style="width:400px"><br>
-                                    <span class="blur">(Recomended) Hormati dan Hargai Pemilik Aslinya</span>
+                                    <input type="text" name="sumber" id="pic_source" value="" style="width:400px"><br>
+                                    <span class="blur">(Opsional) Hormati dan Hargai Pemilik Aslinya</span>
 
 
                                 </td>
@@ -95,26 +73,13 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" name="pic_tags" style="width:400px"><br>
-                                    <span class="blur">(Recomended) e.g. : bola, lucu, cewek, kucing </span>
-
-
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-                                <td width="100" valign="middle">
-
-                                </td>
-
-                                <td>
-                                    <input type="checkbox" name="pic_save"> Ini material yang tidak cocok dibuka saat
-                                    bekerja(di kantor) (Not Safe For Work)/NSFW
-
-
-
+                                    <select class="js-example-basic-multiple" name="tags" multiple="multiple">
+                                        @foreach ($tags as $tag)
+                                        <option value="{{$tag->id}}">{{$tag->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" name="tags" style="width:400px"><br> --}}
+                                    <span class="blur">(Optional) e.g. : bola, lucu, cewek, kucing </span>
                                 </td>
 
                             </tr>
@@ -125,34 +90,16 @@
                                 </td>
 
                                 <td>
-                                    <input type="checkbox" name="pic_original" onclick="$('#pic_source').val('');"> Ini
-                                    buatan saya sendiri
 
 
-
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-                                <td width="100" valign="middle">
-
-                                </td>
-
-                                <td>
-                                    
-                                    
-                        <button id="uploadBtn" class="kafe-btn kafe-btn-mint-small btn-sm" type="submit" name="upload">Upload</button>
-
-
+                                    <button id="uploadBtn" class="kafe-btn kafe-btn-mint-small btn-sm" type="submit">Upload</button>
                                 </td>
 
                             </tr>
 
                         </table>
-
                     </form>
+
                     <div class="box-footer clearfix">
                         <!-- isi footer form -->
                     </div>
@@ -173,4 +120,11 @@
     <!--/ container -->
 </section>
 <!--/ newsfeed -->
+@endsection
+
+@section('js')
+<script>$(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+        });</script>
+
 @endsection

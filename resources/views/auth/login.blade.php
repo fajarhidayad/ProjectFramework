@@ -23,12 +23,19 @@
 	   
         <div class="col-lg-4 num-down">	
 		 <div class="logo col-lg-12">
-		  <a href="https://www.duuuunk.com/a-new-beginning"><h2>Fluffs</h2></a><br/>
-		  <p>Discover a world where people share your passions & interests.</p>
+		  <a href="#"><h2 style="font-family: 'Montserrat', sans-serif;">Memegram</h2></a><br/>
+		  <p>Mencari bahan untuk melucu itu tidak mudah, makanya daftar dulu biar tau lucunya dimana.</p>
 		 </div>		
 		 <div class="logo num col-lg-12">
-		  <a><h2>Registered Fluffers</h2></a><br/>
-		  <p>1,200,000,000</p>
+          <a><h2 style="font-family: 'Montserrat', sans-serif;">Total Pengguna Terdaftar</h2></a><br/>
+          @php
+             use App\User;
+            function totalPengguna() {
+                 $pengguna = User::all()->count();
+                 return $pengguna;
+             }  
+          @endphp
+         <p>{{totalPengguna()}}</p>
 		 </div>	
         </div> 
 		
@@ -48,7 +55,7 @@
 		  <div class="form-group">
            <input type="password" class="form-control" name="password" placeholder="Password">
           </div>
-          <button class="btn btn-theme btn-block" type="submit" name="login"><i class="fa fa-lock"></i> Sign In</button>
+          <button class="btn btn-theme btn-block" type="submit" name="login"><i class="fa fa-lock"></i> Masuk</button>
           <label class="checkbox text-center">
           <span class="text-center">
               @if(Route::has('password.request'))
@@ -61,7 +68,7 @@
         <br/> 
         
 		<form class="form-login" method="post" action="{{route('register')}}" id="regform">
-		 <h4 class="form-login-heading">Sign up for Sosmed</h4>
+		 <h4 class="form-login-heading">Daftar ke Memegram</h4>
 		 <div class="login-wrap">
              @csrf
              <div class="form-group">
@@ -73,7 +80,9 @@
 		  <div class="form-group">
            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Username" required autocomplete="username">
            @error('username')
-    <div class="alert alert-danger">Username tidak boleh mengandung spasi</div>
+    <div class="alert alert-danger">
+        {{$message}}
+    </div>
 @enderror
 		  </div>
 		  <div class="form-group">
