@@ -11,12 +11,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    if(Auth::check()) {
-        return view('home');
-    }
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -31,6 +26,5 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'auth.admin'])->
     Route::resource('/users', 'UserController');
 });
 
-Route::get('/upload', function() {
-    return view('upload.upload');
-});
+Route::get('/upload', 'PostController@create')->name('upload.index');
+Route::post('/upload', 'PostController@store')->name('upload.foto');

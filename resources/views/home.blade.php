@@ -32,7 +32,7 @@
            
           </div><!--/ col-lg-3 -->
           <div class="col-lg-6">
-          
+            @foreach ($post as $posts)
            <div class="cardbox">
            
             <div class="cardbox-heading">
@@ -48,26 +48,29 @@
               </div>
              </div><!--/ dropdown -->
              <!-- END dropdown-->
+   
              <div class="judulpost" style="margin-top:-20px; font-family: 'Abhaya Libre', serif;">
-                    <h2>Meme Politik - Pelantikan Presiden</h2>
+             <h2>{{$posts->title}}</h2>
                 </div>
              <div class="media m-0">
                   
               <div class="d-flex mr-3">
-               <a href="#"><img class="img-responsive img-circle" src="assets/img/users/18.jpg" alt="User"></a>
+              <a href="#"><img class="img-responsive img-circle" src="storage/{{$posts->user['foto_profil']}}" alt="User"></a>
               </div>
               <div class="media-body">
-               <p class="m-0">Benjamin Robinson</p>
-               <small><span>10 hours ago</span></small>
+              <p class="m-0">{{$posts->user['name']}}</p>
+              <small><span>{{$posts->created_at->diffForHumans()}}</span></small>
               </div>
              </div><!--/ media -->
+             
             </div><!--/ cardbox-heading -->
             
             <div class="cardbox-item">
              <a href="#myModal" data-toggle="modal">
-              <img class="img-responsive" src="assets/img/posts/1.jpg" alt="MaterialImg">
+              <img class="img-responsive" src="storage/{{$posts->foto}}" alt="MaterialImg">
              </a> 
-            </div><!--/ cardbox-item -->
+            </div>
+           <!--/ cardbox-item -->
             <div class="cardbox-base">
              <ul>
               <li><a href="#"><img src="assets/img/users/1.jpg" class="img-responsive img-circle" alt="User"></a></li>
@@ -88,9 +91,9 @@
               <li><a href="#" title="" class="com"><i class="fa fa-comments"></i></a> <span class="span-last"> 126,400</span></li>
              </ul>
             </div><!--/ cardbox-like -->			  
-                  
-           </div><!--/ cardbox -->	
-          </div><!--/ col-lg-6 -->
+        
+           </div><!--/ cardbox -->	@endforeach
+          </div><!--/ col-lg-6 -->          
           <div class="col-lg-3">
           
            <div class="suggestion-box full-width">
@@ -199,7 +202,7 @@
            <div class="row">
            
             <div class="col-md-8 modal-image">
-             <img class="img-responsive" src="assets/img/posts/1.jpg" alt="Image"/>
+            <img class="img-responsive" src="storage/{{$posts->foto}}" alt="Image"/>
             </div><!--/ col-md-8 -->
             <div class="col-md-4 modal-meta">
              <div class="modal-meta-top">
@@ -222,42 +225,6 @@
                 <div class="comment-text">
                  <strong><a href="#">Anthony McCartney</a></strong>
                  <p>Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                </div>
-               </li><!--/ li -->
-               <li>
-                <div class="comment-img">
-                 <img src="assets/img/users/15.jpg" class="img-responsive img-circle" alt="Image"/>
-                </div>
-                <div class="comment-text">
-                 <strong><a href="#">Vanessa Wells</a></strong>
-                 <p>Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span>on December 5th, 2016</span>
-                </div>
-               </li><!--/ li -->
-               <li>
-                <div class="comment-img">
-                 <img src="assets/img/users/14.jpg" class="img-responsive img-circle" alt="Image"/>
-                </div>
-                <div class="comment-text">
-                 <strong><a href="#">Sean Coleman</a></strong>
-                 <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                </div>
-               </li><!--/ li -->
-               <li>
-                <div class="comment-img">
-                 <img src="assets/img/users/13.jpg" class="img-responsive img-circle" alt="Image"/>
-                </div>
-                <div class="comment-text">
-                 <strong><a href="#">Anna Morgan</a></strong>
-                 <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                </div>
-               </li><!--/ li -->
-               <li>
-                <div class="comment-img">
-                 <img src="assets/img/users/3.jpg" class="img-responsive img-circle" alt="Image"/>
-                </div>
-                <div class="comment-text">
-                 <strong><a href="#">Allison Fowler</a></strong>
-                 <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
                 </div>
                </li><!--/ li -->
               </ul><!--/ comment-list -->

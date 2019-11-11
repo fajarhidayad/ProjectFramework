@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Tags;
 use Illuminate\Http\Request;
+use App\Helpers\ImageHelper;
+use Carbon\Carbon;
+use Validator;
+use File;
+use Auth;
+use Image;
+use Storage;
 
-class uploadController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +22,7 @@ class uploadController extends Controller
      */
     public function index()
     {
-        return view('');
+        
     }
 
     /**
@@ -23,7 +32,8 @@ class uploadController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tags::get();
+        return view('upload.upload', compact('tags'));
     }
 
     /**
@@ -34,7 +44,26 @@ class uploadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $request->validate([
+            'foto' => 'required|image|mimes:jpg,jpeg,png',
+            'title' => 'required|string|max:100',
+        ]);
+        
+        $image = $request->file('foto');
+        $extension = $image->getClientOriginalExtension();
+        $fileName = Carbon::now()->timestamp . '_' . Auth::user()->id . '.' . $extension;
+        Storage::disk('public')->put($fileName,  File::get($image));
+
+        $id_user = Auth::user()->id;
+        $post = new Post;
+        $post->foto = $fileName;
+        $post->title = $request->title;
+        $post->sumber = $request->sumber;
+        $post->id_tag = $request->tags;
+        $post->id_user = $id_user;
+        $post->save();
+
+        return redirect()->route('home');
     }
 
     /**
