@@ -47,6 +47,7 @@ class PostController extends Controller
         $validator = $request->validate([
             'foto' => 'required|image|mimes:jpg,jpeg,png',
             'title' => 'required|string|max:100',
+            'tags' => 'required',
         ]);
         
         $image = $request->file('foto');
@@ -85,7 +86,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tags = Tags::all();
+        $post = Post::find($id);
+        return view('upload.edit', compact('post', 'tags'));
     }
 
     /**
@@ -97,7 +100,20 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = $request->validate([
+            'title' => 'required|string|max:100',
+            'tags' => 'required',
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->sumber = $request->sumber;
+        $post->id_tag = $request->tags;
+
+        $post->save();
+
+        return redirect()->route('home');
+        
     }
 
     /**
@@ -108,6 +124,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect()->route('home');
     }
 }

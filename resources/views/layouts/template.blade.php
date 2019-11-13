@@ -252,7 +252,7 @@
 				</a>
 			</div>
 			<div class="p-2 nav-icon-lg {{ (request()->is('upload')) ? 'mint-green' : 'clean-black' }}">
-				<a class="nav-icon" href="/upload"><em class="fab fa-instagram"></em>
+				<a class="nav-icon" href="/upload"><em class="fab fa-dashcube"></em>
 					<span>Upload</span>
 				</a>
 			</div>

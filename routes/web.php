@@ -28,3 +28,6 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'auth.admin'])->
 
 Route::get('/upload', 'PostController@create')->name('upload.index');
 Route::post('/upload', 'PostController@store')->name('upload.foto');
+Route::get('/{id}/edit', 'PostController@edit')->name('upload.edit');
+Route::put('/{id}/post', 'PostController@update')->name('upload.update');
+Route::delete('/{id}/delete', 'PostController@destroy')->name('post.delete');
